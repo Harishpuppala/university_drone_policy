@@ -25,9 +25,11 @@ dropdown.appendChild(option);
 
 });
 
+/* Initialize searchable dropdown AFTER options load */
 new TomSelect("#collegeDropdown",{
 create:false,
 sortField:"text",
+searchField:["text"],
 placeholder:"Type university name to search..."
 });
 
