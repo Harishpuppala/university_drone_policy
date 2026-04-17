@@ -4,16 +4,10 @@
 <head>
 
 <meta charset="UTF-8">
-
 <title>University Drone Policy Generator</title>
 
 <link rel="stylesheet" href="style.css">
 
-<!-- Searchable Dropdown Library -->
-<link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
-
-<!-- PDF Generator -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </head>
@@ -24,33 +18,19 @@
 
 <p>Select your university to generate a UAV policy document.</p>
 
-<label for="collegeDropdown">University / Institute</label>
+<label>Search University</label>
 
-<select id="collegeDropdown" placeholder="Type to search university..."></select>
+<input type="text" id="searchBox" placeholder="Type university name..." onkeyup="filterColleges()">
+
+<br><br>
+
+<select id="collegeDropdown" size="10" style="width:500px;"></select>
 
 <br><br>
 
 <button onclick="downloadPDF()">Generate Policy PDF</button>
 
-<br><br>
-
-<div id="status"></div>
-
 <script src="script.js"></script>
-
-<script>
-
-document.addEventListener("DOMContentLoaded", function(){
-
-new TomSelect("#collegeDropdown",{
-create:false,
-sortField:"text",
-placeholder:"Type university name to search..."
-});
-
-});
-
-</script>
 
 </body>
 
