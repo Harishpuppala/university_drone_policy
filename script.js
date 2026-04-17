@@ -1,5 +1,5 @@
 let colleges = [];
-let template = "";
+let template = [];
 
 fetch("template.txt")
 .then(res => res.text())
@@ -13,11 +13,20 @@ fetch("colleges.json")
 
 colleges = data;
 
+populateDropdown(colleges);
+
+});
+
+function populateDropdown(list){
+
 let dropdown = document.getElementById("collegeDropdown");
 
-data.forEach((college, index) => {
+dropdown.innerHTML = "";
+
+list.forEach((college,index)=>{
 
 let option = document.createElement("option");
+
 option.value = index;
 option.text = college.name;
 
@@ -25,21 +34,27 @@ dropdown.appendChild(option);
 
 });
 
-/* Initialize searchable dropdown AFTER options load */
-new TomSelect("#collegeDropdown",{
-create:false,
-sortField:"text",
-searchField:["text"],
-placeholder:"Type university name to search..."
-});
+}
 
-});
+function filterColleges(){
+
+let search = document.getElementById("searchBox").value.toLowerCase();
+
+let filtered = colleges.filter(c =>
+c.name.toLowerCase().includes(search)
+);
+
+populateDropdown(filtered);
+
+}
 
 function downloadPDF(){
 
-let index = document.getElementById("collegeDropdown").value;
+let dropdown = document.getElementById("collegeDropdown");
 
-let college = colleges[index];
+let selectedText = dropdown.options[dropdown.selectedIndex].text;
+
+let college = colleges.find(c => c.name === selectedText);
 
 let policy = template
 .replaceAll("{{UNIVERSITY_NAME}}", college.name)
