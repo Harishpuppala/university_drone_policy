@@ -1,31 +1,36 @@
 let colleges = [];
 let template = "";
 
-// Load college list
+fetch("template.txt")
+.then(res => res.text())
+.then(data => {
+template = data;
+});
+
 fetch("colleges.json")
 .then(res => res.json())
 .then(data => {
 
-    colleges = data;
+colleges = data;
 
-    let dropdown = document.getElementById("collegeDropdown");
+let dropdown = document.getElementById("collegeDropdown");
 
-    data.forEach((college, index) => {
+data.forEach((college, index) => {
 
-        let option = document.createElement("option");
-        option.value = index;
-        option.text = college.name;
+let option = document.createElement("option");
+option.value = index;
+option.text = college.name;
 
-        dropdown.appendChild(option);
-    });
+dropdown.appendChild(option);
 
 });
 
-// Load template
-fetch("template.txt")
-.then(res => res.text())
-.then(data => {
-    template = data;
+new TomSelect("#collegeDropdown",{
+create:false,
+sortField:"text",
+placeholder:"Type university name to search..."
+});
+
 });
 
 function downloadPDF(){
@@ -42,10 +47,10 @@ const { jsPDF } = window.jspdf;
 
 let doc = new jsPDF();
 
-let lines = doc.splitTextToSize(policy, 180);
+let lines = doc.splitTextToSize(policy,180);
 
-doc.text(lines, 10, 10);
+doc.text(lines,10,10);
 
-doc.save("UAV_Policy.pdf");
+doc.save("Drone_Policy.pdf");
 
 }
